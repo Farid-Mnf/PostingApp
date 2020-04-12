@@ -10,7 +10,7 @@ public class Main extends Application {
         Login loginScreen = new Login();
         loginScene = new Scene(loginScreen,380,300);
         primaryStage.setScene(loginScene);
-        primaryStage.setTitle("Postaty");
+        primaryStage.setTitle("PostingApp");
         primaryStage.show();
     }
 
