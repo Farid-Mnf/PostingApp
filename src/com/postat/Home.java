@@ -27,14 +27,15 @@ public class Home extends BorderPane {
     Button next,previous;
     HBox controlPane;
     public static Label userName;
-    public static String id,first_name,last_name,userEmail;
+    public static String first_name,last_name,userEmail;
+    public static int id;
     Connection con;
 
 
     Home(){
         System.out.println("loaded home constructor");
         Posts posts = new Posts();
-
+        System.out.println("Posts initialized");
         setStyle("-fx-background-color:#34495e");
         Button addPost = new Button("Add Post");
         Button logOut = new Button("Log Out");
@@ -199,13 +200,40 @@ public class Home extends BorderPane {
         controlPane.setAlignment(Pos.CENTER);
         setBottom(controlPane);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public int getNumOfPosts() throws Exception{
+        System.out.println("enter posts number function getNumOfPosts()");
         int posts_num=0;
         System.out.println("user id is "+id);
-        String sqlQuery = "select COUNT(*) from post where user_id='"+id+"'";
+        String sqlQuery = "select COUNT(*) from post where id='"+id+"'";
 
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/test?autoReconnect=true&useSSL=false","fci","fci");
+        con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
         Statement statement = con.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlQuery);
         if(resultSet.next()){

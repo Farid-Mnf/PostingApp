@@ -14,10 +14,11 @@ public class Posts {
     public Posts() {
         postsList = new ArrayList<>();
         try{
+            System.out.println("Posts class try block");
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/test?autoReconnect=true&useSSL=false","fci","fci");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
             statement = con.createStatement();
-            String getPostsQuery = "select first_name,last_name,content from account ac,post pst where ac.user_id=pst.user_id";
+            String getPostsQuery = "select f_name,l_name,content from user us,post pst where us.id=pst.id";
             ResultSet stackSet = statement.executeQuery(getPostsQuery);
             while (stackSet.next()){
                 postsList.add(new Post(stackSet.getString(1),

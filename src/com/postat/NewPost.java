@@ -10,13 +10,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class NewPost extends GridPane {
-    public static String userId;
+    public static int userId;
     Label userName;
     private TextArea content;
     private Button post;
@@ -29,17 +26,18 @@ public class NewPost extends GridPane {
 
         post.setOnAction(event -> {
             // store post in database then close
+
             String postContent = content.getText();
-            String sqlQuery = "insert into post" +
-                    " values ('"+postContent+"','"+userId+"')";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost/test?autoReconnect=true&useSSL=false","fci","fci");
-                Statement statement = con.createStatement();
-                statement.executeUpdate(sqlQuery);
+                con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
+                PreparedStatement preparedStatement = con.prepareStatement("" +
+                        "insert into post values(?,?)");
+                preparedStatement.setInt(1,userId);
+                preparedStatement.setString(2,postContent);
+                preparedStatement.execute();
                 con.close();
                 System.out.println("post added");
-
                 getScene().getWindow().hide();
             }
             catch(ClassNotFoundException e){

@@ -87,7 +87,7 @@ public class SignUp extends GridPane {
             String last_name = getLastNameField().getText().trim();
             String email = getEmailField().getText().trim();
             String password = getPasswordField().getText().trim();
-            String sqlQuery = "insert into account(first_name,last_name,email,password) values ('"+first_name+"','"+last_name+"','"+email+"','"+password+"')";
+            String sqlQuery = "insert into user(f_name,l_name,email,password) values ('"+first_name+"','"+last_name+"','"+email+"','"+password+"')";
             try{
                 setDriver();
                 setConnection();
@@ -104,98 +104,31 @@ public class SignUp extends GridPane {
             getScene().getWindow().hide();
         });
     }
-    public static void setDriver() throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-    }
+    public static void setDriver() throws ClassNotFoundException { Class.forName("com.mysql.jdbc.Driver"); }
 
     public void setConnection() throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://localhost/test?autoReconnect=true&useSSL=false","fci","fci");
-
+        con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
     }
 
-    public void setStatement() throws SQLException{
-        statement = con.createStatement();
-    }
+    public void setStatement() throws SQLException{ statement = con.createStatement(); }
 
-    public void insertToAccount(String newAccount) throws SQLException{
-        statement.executeUpdate(newAccount);
-    }
-    public void closeConnection() throws SQLException {
-        con.close();
-    }
-    public String getFirstName() {
-        return firstName;
-    }
+    public void insertToAccount(String newAccount) throws SQLException{ statement.executeUpdate(newAccount); }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+    public void closeConnection() throws SQLException { con.close(); }
 
     public PasswordField getPasswordField() {
         return passwordField;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public TextField getFirstNameField() {
         return firstNameField;
     }
 
-    public void setFirstNameField(TextField firstNameField) {
-        this.firstNameField = firstNameField;
-    }
-
     public TextField getLastNameField() {
         return lastNameField;
     }
 
-    public void setLastNameField(TextField lastNameField) {
-        this.lastNameField = lastNameField;
-    }
-
     public TextField getEmailField() {
         return emailField;
-    }
-
-    public void setEmailField(TextField emailField) {
-        this.emailField = emailField;
-    }
-
-    public Label getFirstNameLabel() {
-        return firstNameLabel;
-    }
-
-    public void setFirstNameLabel(Label firstNameLabel) {
-        this.firstNameLabel = firstNameLabel;
-    }
-
-    public Label getLastNameLabel() {
-        return lastNameLabel;
-    }
-
-    public void setLastNameLabel(Label lastNameLabel) {
-        this.lastNameLabel = lastNameLabel;
-    }
-
-    public Label getEmailLabel() {
-        return emailLabel;
-    }
-
-    public void setEmailLabel(Label emailLabel) {
-        this.emailLabel = emailLabel;
     }
 }

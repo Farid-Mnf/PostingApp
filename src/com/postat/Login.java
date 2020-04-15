@@ -42,16 +42,16 @@ public class Login extends GridPane {
         login.setOnAction(event -> {
             String emailValue = emailField.getText();
             String passwordValue = passwordField.getText();
-            String sqlQuery = "select * from account where email='"+emailValue+"' AND password='"+passwordValue+"'";
+            String sqlQuery = "select * from user where email='"+emailValue+"' AND password='"+passwordValue+"'";
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost/test?autoReconnect=true&useSSL=false","fci","fci");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
                 Statement statement = con.createStatement();
 
                 ResultSet resultSet = statement.executeQuery(sqlQuery);
                 if(resultSet.next()){
                     System.out.println("logged in");
-                    String userId = resultSet.getString(1);
+                    int userId = resultSet.getInt(1);
                     String first_name = resultSet.getString(2);
                     String last_name = resultSet.getString(3);
                     String userEmail = resultSet.getString(4);
