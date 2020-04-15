@@ -1,38 +1,26 @@
 package com.postat;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Posts {
-    ArrayList<Post> postsList;
-    public static int post_id = 0;
-    Connection con;
-    Statement statement;
-    public Posts() {
-        postsList = new ArrayList<>();
-        try{
-            System.out.println("Posts class try block");
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
-            statement = con.createStatement();
-            String getPostsQuery = "select f_name,l_name,content from user us,post pst where us.id=pst.id";
-            ResultSet stackSet = statement.executeQuery(getPostsQuery);
-            while (stackSet.next()){
-                postsList.add(new Post(stackSet.getString(1),
-                        stackSet.getString(2),stackSet.getString(3)));
-            }
-            con.close();
-        }catch (Exception e){
-            System.out.println(e.getCause());
+    public static ArrayList<Post> postsList;
+    private static int post_id = 0;
+
+    public static void initPostsList(){
+        DatabaseWrapper databaseWrapper = new DatabaseWrapper();
+        postsList = databaseWrapper.getPosts();   // BUG here
+    }
+
+    public static Post getCurrentPost(){
+        initPostsList();
+        if(postsList.isEmpty()){
+            Post temp = new Post("No","Posts","Please add posts in the database");
+            return temp;
         }
+        return postsList.get(post_id);  // Bug here
     }
-    public Post getCurrentPost(){
-        return postsList.get(post_id);
-    }
-    public Post getNextPost(){
+    public static Post getNextPost(){
+        initPostsList();
         if(postsList.size()-1>post_id){
             post_id++;
             return postsList.get(post_id);
@@ -40,7 +28,8 @@ public class Posts {
             return null;
         }
     }
-    public Post getPreviousPost() {
+    public static Post getPreviousPost() {
+        initPostsList();
         if(post_id>0){
             post_id--;
             return postsList.get(post_id);

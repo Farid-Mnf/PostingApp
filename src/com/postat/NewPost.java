@@ -10,43 +10,25 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 
-import java.sql.*;
-
 public class NewPost extends GridPane {
     public static int userId;
     Label userName;
     private TextArea content;
     private Button post;
-    Connection con;
-    Statement statement;
+    DatabaseWrapper databaseWrapper;
     NewPost(){
+        databaseWrapper = new DatabaseWrapper();
         userName = new Label("UserName");
         content = new TextArea();
         post = new Button("Post");
 
         post.setOnAction(event -> {
             // store post in database then close
-
             String postContent = content.getText();
-            try{
-                Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
-                PreparedStatement preparedStatement = con.prepareStatement("" +
-                        "insert into post values(?,?)");
-                preparedStatement.setInt(1,userId);
-                preparedStatement.setString(2,postContent);
-                preparedStatement.execute();
-                con.close();
-                System.out.println("post added");
-                getScene().getWindow().hide();
-            }
-            catch(ClassNotFoundException e){
-                System.out.println("class not found");
-            }
-            catch(SQLException e){
-                System.out.println("SQL exception "+e.getMessage()+" | "+e.getStackTrace()+
-                        " | "+e.toString()+" | "+e.getCause());
-            }
+            databaseWrapper.addPost(userId, postContent);
+            Posts.postsList = databaseWrapper.getPosts();
+
+            System.out.println("post added");
             getScene().getWindow().hide();
         });
 

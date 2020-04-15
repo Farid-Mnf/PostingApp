@@ -11,19 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 
 public class SignUp extends GridPane {
-    Connection con;
-    Statement statement;
-    private String firstName;
-    private String lastName;
-    private String email;
-
     TextField firstNameField,lastNameField,emailField;
     PasswordField passwordField;
     Label firstNameLabel,lastNameLabel,emailLabel,passwordLabel;
@@ -60,9 +49,7 @@ public class SignUp extends GridPane {
         submit.setTextFill(Color.WHITE);
         submit.setOnMousePressed(event -> submit.setStyle("-fx-background-color:#8e44ad"));
         submit.setOnMouseReleased(event -> submit.setStyle("-fx-background-color:#9b59b6"));
-        submit.setOnMouseMoved(event -> {
-            submit.setCursor(Cursor.HAND);
-        });
+        submit.setOnMouseMoved(event -> submit.setCursor(Cursor.HAND));
         add(firstNameLabel,0,0);
         add(firstNameField,1,0);
         add(lastNameLabel,0,1);
@@ -80,41 +67,19 @@ public class SignUp extends GridPane {
         setStyle("-fx-background-color:#34495e");
         setPadding(new Insets(10));
 
-        //Submit action
+        //Submit new user record to database
         submit.setOnAction(event -> {
             // add data to the database
             String first_name = getFirstNameField().getText().trim();
             String last_name = getLastNameField().getText().trim();
             String email = getEmailField().getText().trim();
             String password = getPasswordField().getText().trim();
-            String sqlQuery = "insert into user(f_name,l_name,email,password) values ('"+first_name+"','"+last_name+"','"+email+"','"+password+"')";
-            try{
-                setDriver();
-                setConnection();
-                setStatement();
-                insertToAccount(sqlQuery);
-                closeConnection();
-            }catch(ClassNotFoundException e){
-                System.out.println("class not found");
-            }
-            catch(SQLException e){
-                System.out.println("SQL exception "+e.getMessage()+" | "+e.getStackTrace()+
-                        " | "+e.toString()+" | "+e.getCause());
-            }
+
+            DatabaseWrapper databaseWrapper = new DatabaseWrapper();
+            databaseWrapper.SignUp(first_name,last_name,email,password);
             getScene().getWindow().hide();
         });
     }
-    public static void setDriver() throws ClassNotFoundException { Class.forName("com.mysql.jdbc.Driver"); }
-
-    public void setConnection() throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
-    }
-
-    public void setStatement() throws SQLException{ statement = con.createStatement(); }
-
-    public void insertToAccount(String newAccount) throws SQLException{ statement.executeUpdate(newAccount); }
-
-    public void closeConnection() throws SQLException { con.close(); }
 
     public PasswordField getPasswordField() {
         return passwordField;

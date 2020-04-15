@@ -14,11 +14,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
-import java.sql.*;
-
 public class Login extends GridPane {
-    Connection con;
-    Statement statement;
+    public static int id;
     Login(){
         Label email = new Label("Email: ");
         TextField emailField = new TextField();
@@ -40,61 +37,27 @@ public class Login extends GridPane {
         login.setOnMousePressed(event -> login.setStyle("-fx-background-color:#8e44ad"));
         login.setOnMouseReleased(event -> login.setStyle("-fx-background-color:#9b59b6"));
         login.setOnAction(event -> {
-            String emailValue = emailField.getText();
-            String passwordValue = passwordField.getText();
-            String sqlQuery = "select * from user where email='"+emailValue+"' AND password='"+passwordValue+"'";
-            try{
-                Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
-                Statement statement = con.createStatement();
-
-                ResultSet resultSet = statement.executeQuery(sqlQuery);
-                if(resultSet.next()){
-                    System.out.println("logged in");
-                    int userId = resultSet.getInt(1);
-                    String first_name = resultSet.getString(2);
-                    String last_name = resultSet.getString(3);
-                    String userEmail = resultSet.getString(4);
-                    Stage stage = new Stage();
-                    Home home = new Home();
-                    home.id = userId;
-                    home.first_name = first_name;
-                    home.last_name = last_name;
-                    home.userEmail = userEmail;
-
-
-//                    String fname,lname,postContent;
-//                    if(resultSet.next()) {
-//                        fname = resultSet.getString(1);
-//                        lname = resultSet.getString(2);
-//                        postContent = resultSet.getString(3);
-//                        home.postText.setText(postContent);
-//                        home.userName.setText(fname+" "+lname);
-//                    }
-                    Scene scene = new Scene(home,800,500);
-                    stage.setScene(scene);
-                    stage.show();
-                    stage.setTitle("Postaty");
-                    getScene().getWindow().hide();
-                }
-                else{
-                    errorLabel.setText("Wrong email or password!");
-                    errorLabel.setTextFill(Color.RED);
-                    errorLabel.setFont(Font.font(20));
-                }
-                closeConnection();
+            System.out.println("button clicked...");
+            String emailValue = emailField.getText().trim();
+            String passwordValue = passwordField.getText().trim();
+            DatabaseWrapper databaseWrapper = new DatabaseWrapper();
+            id = databaseWrapper.login(emailValue,passwordValue);
+            System.out.println("Login id: "+id);
+            if( id != 0 ) {
+                System.out.println("id checked...........");
+                Main.id = id;
+                Home home = new Home();
+                Stage stage = new Stage();
+                Scene scene = new Scene(home, 800, 500);
+                stage.setScene(scene);
+                stage.show();
+                stage.setTitle("PostingApp");
+                getScene().getWindow().hide();
+            }else{
+                errorLabel.setText("Wrong email or password!");
+                errorLabel.setTextFill(Color.RED);
+                errorLabel.setFont(Font.font(20));
             }
-            catch(ClassNotFoundException e){
-                System.out.println("class not found");
-            }
-            catch(SQLException e){
-                System.out.println("SQL exception "+e.getMessage()+" | "+e.getStackTrace()+
-                        " | "+e.toString()+" | "+e.getCause());
-            }catch (Exception e){
-                System.out.println(e.getCause());
-            }
-
-
         });
         login.setOnMouseMoved(event -> {
             login.setCursor(Cursor.HAND);
@@ -129,26 +92,5 @@ public class Login extends GridPane {
         add(passwordField,1,2);
         add(buttons,1,3);
         add(errorLabel,1,4);
-    }
-
-
-    public static void setDriver() throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-    }
-
-    public void setConnection() throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://localhost/test?autoReconnect=true&useSSL=false","fci","fci");
-
-    }
-
-    public void setStatement() throws SQLException{
-        statement = con.createStatement();
-    }
-
-    public void insertToAccount(String newAccount) throws SQLException{
-        statement.executeUpdate(newAccount);
-    }
-    public void closeConnection() throws SQLException {
-        con.close();
     }
 }

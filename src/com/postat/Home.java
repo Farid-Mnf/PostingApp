@@ -15,26 +15,28 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Arrays;
 
 
 public class Home extends BorderPane {
+    public static int id;  // unified id across all stages to communicate
+    public static String[] userData;
     TextArea postText;
     Button next,previous;
     HBox controlPane;
     public static Label userName;
-    public static String first_name,last_name,userEmail;
-    public static int id;
-    Connection con;
+    public static String first_name,last_name,email;
 
 
     Home(){
+        id = Login.id;
+        System.out.println("Home id: "+id);
+        userData = new DatabaseWrapper().getUserDataById(id);
+        first_name = userData[1];
+        last_name = userData[2];
+        email = userData[3];
         System.out.println("loaded home constructor");
-        Posts posts = new Posts();
+
         System.out.println("Posts initialized");
         setStyle("-fx-background-color:#34495e");
         Button addPost = new Button("Add Post");
@@ -67,7 +69,7 @@ public class Home extends BorderPane {
             newPost.userName.setText(first_name+" "+last_name);
             Scene scene = new Scene(newPost,500,400);
             stage.setScene(scene);
-            stage.setTitle("Posting");
+            stage.setTitle(first_name+" is posting");
             stage.show();
         });
         HBox topHeader = new HBox();
@@ -93,23 +95,13 @@ public class Home extends BorderPane {
                 }else if(sidePanel.getSelectionModel().getSelectedItem().equals("Users")){
                     System.out.println("Users selected");
                 }else if(sidePanel.getSelectionModel().getSelectedItem().equals("Account")){
-                    System.out.println("account selected");
                     Account account = new Account();
-                    account.firstNameField.setText(first_name);
-                    account.lastNameField.setText(last_name);
-                    account.emailField.setText(userEmail);
-                    int numPosts;
-                    try{
-                        System.out.println("try block entered");
-                        numPosts = getNumOfPosts();
-                        System.out.println("num of posts "+numPosts);
-                        account.numOfPosts.setText(""+numPosts);
-                    }catch(Exception e){
-                        e.getCause();
-                    }
-                    setCenter(account);
-                    Home.super.getScene().getWindow().setWidth(700);
-                    controlPane.setVisible(false);
+                    account.id = id;
+                    Scene scene = new Scene(account,550,400);
+                    Stage stage = new Stage();
+                    stage.setTitle(email);
+                    stage.setScene(scene);
+                    stage.show();
                 }
             }
         });
@@ -135,7 +127,7 @@ public class Home extends BorderPane {
         GridPane post = new GridPane();
         userName = new Label("UserName");
 
-        Post currentPost = posts.getCurrentPost();
+        Post currentPost = Posts.getCurrentPost();
         postText = new TextArea("");
         postText.setText(currentPost.content);
         userName.setText(currentPost.firstName+" "+currentPost.lastName);
@@ -159,8 +151,6 @@ public class Home extends BorderPane {
         post.add(postText,0,1);
         post.setVgap(20);
         setMargin(post,new Insets(50));
-
-//        setCenter(post);
         setCenter(post);
         setMargin(userName,new Insets(10));
         setMargin(postText,new Insets(10));
@@ -176,7 +166,7 @@ public class Home extends BorderPane {
             previous.setCursor(Cursor.HAND);
         });
         previous.setOnAction(event -> {
-            Post previousPost = posts.getPreviousPost();
+            Post previousPost = Posts.getPreviousPost();
             if(previousPost!=null){
                 userName.setText(previousPost.firstName+" "+previousPost.lastName);
                 postText.setText(previousPost.content);
@@ -186,7 +176,7 @@ public class Home extends BorderPane {
             next.setCursor(Cursor.HAND);
         });
         next.setOnAction(event -> {
-            Post nextPost = posts.getNextPost();
+            Post nextPost = Posts.getNextPost();
             if(nextPost!=null){
                 userName.setText(nextPost.firstName+" "+nextPost.lastName);
                 postText.setText(nextPost.content);
@@ -199,48 +189,5 @@ public class Home extends BorderPane {
         controlPane.setPadding(new Insets(10));
         controlPane.setAlignment(Pos.CENTER);
         setBottom(controlPane);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public int getNumOfPosts() throws Exception{
-        System.out.println("enter posts number function getNumOfPosts()");
-        int posts_num=0;
-        System.out.println("user id is "+id);
-        String sqlQuery = "select COUNT(*) from post where id='"+id+"'";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost/postapp?autoReconnect=true&useSSL=false","admin","admin");
-        Statement statement = con.createStatement();
-        ResultSet resultSet = statement.executeQuery(sqlQuery);
-        if(resultSet.next()){
-            posts_num =  resultSet.getInt(1);
-            System.out.println(resultSet.getInt(1));
-        }
-        con.close();
-        return posts_num;
     }
 }
