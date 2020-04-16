@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="734b4567-36b9-4d2e-8dc6-c063b918ed31" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/postat/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/DatabaseWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/DatabaseWrapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Home$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Home$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Home$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Home$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Login.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/Posts.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/Posts.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Postat/com/postat/SignUp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Postat/com/postat/SignUp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/postat/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/postat/DataBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/postat/DatabaseWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/DatabaseWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/postat/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/postat/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/postat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/postat/NewPost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/NewPost.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/postat/Posts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/postat/Posts.java" afterDir="false" />
@@ -109,7 +107,7 @@
       <workItem from="1586903854996" duration="329000" />
       <workItem from="1586904205482" duration="26524000" />
       <workItem from="1586972454201" duration="3821000" />
-      <workItem from="1586981319301" duration="8139000" />
+      <workItem from="1586981319301" duration="12911000" />
     </task>
     <servers />
   </component>
@@ -137,26 +135,26 @@
       <screen x="0" y="0" width="1280" height="1024" />
     </state>
     <state x="418" y="273" width="735" height="505" key="FileChooserDialogImpl/0.0.1280.1024@0.0.1280.1024" timestamp="1586905925843" />
-    <state width="1234" height="259" key="GridCell.Tab.0.bottom" timestamp="1586990023144">
+    <state width="1234" height="259" key="GridCell.Tab.0.bottom" timestamp="1587001526176">
       <screen x="0" y="27" width="1280" height="997" />
     </state>
     <state width="1234" height="328" key="GridCell.Tab.0.bottom/0.0.1280.1024@0.0.1280.1024" timestamp="1586935110643" />
-    <state width="1234" height="259" key="GridCell.Tab.0.bottom/0.27.1280.997@0.27.1280.997" timestamp="1586990023144" />
-    <state width="1234" height="259" key="GridCell.Tab.0.center" timestamp="1586990023143">
+    <state width="1234" height="259" key="GridCell.Tab.0.bottom/0.27.1280.997@0.27.1280.997" timestamp="1587001526176" />
+    <state width="1234" height="259" key="GridCell.Tab.0.center" timestamp="1587001526176">
       <screen x="0" y="27" width="1280" height="997" />
     </state>
     <state width="1234" height="328" key="GridCell.Tab.0.center/0.0.1280.1024@0.0.1280.1024" timestamp="1586935110639" />
-    <state width="1234" height="259" key="GridCell.Tab.0.center/0.27.1280.997@0.27.1280.997" timestamp="1586990023143" />
-    <state width="1234" height="259" key="GridCell.Tab.0.left" timestamp="1586990023143">
+    <state width="1234" height="259" key="GridCell.Tab.0.center/0.27.1280.997@0.27.1280.997" timestamp="1587001526176" />
+    <state width="1234" height="259" key="GridCell.Tab.0.left" timestamp="1587001526175">
       <screen x="0" y="27" width="1280" height="997" />
     </state>
     <state width="1234" height="328" key="GridCell.Tab.0.left/0.0.1280.1024@0.0.1280.1024" timestamp="1586935110639" />
-    <state width="1234" height="259" key="GridCell.Tab.0.left/0.27.1280.997@0.27.1280.997" timestamp="1586990023143" />
-    <state width="1234" height="259" key="GridCell.Tab.0.right" timestamp="1586990023143">
+    <state width="1234" height="259" key="GridCell.Tab.0.left/0.27.1280.997@0.27.1280.997" timestamp="1587001526175" />
+    <state width="1234" height="259" key="GridCell.Tab.0.right" timestamp="1587001526176">
       <screen x="0" y="27" width="1280" height="997" />
     </state>
     <state width="1234" height="328" key="GridCell.Tab.0.right/0.0.1280.1024@0.0.1280.1024" timestamp="1586935110640" />
-    <state width="1234" height="259" key="GridCell.Tab.0.right/0.27.1280.997@0.27.1280.997" timestamp="1586990023143" />
+    <state width="1234" height="259" key="GridCell.Tab.0.right/0.27.1280.997@0.27.1280.997" timestamp="1587001526176" />
     <state width="1234" height="317" key="GridCell.Tab.1.bottom" timestamp="1586981295988">
       <screen x="0" y="27" width="1280" height="997" />
     </state>

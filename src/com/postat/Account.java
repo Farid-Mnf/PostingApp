@@ -1,18 +1,35 @@
 package com.postat;
 
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import javafx.stage.Stage;
 
 public class Account extends SignUp {
+    public static Home home;
     public static int id;
     private String[] data;
     public static Label posts;
     public static TextField numOfPosts;
     Account(){
+        deleteButton = submit;
+        deleteButton.setText("Delete Account");
+        deleteButton.setOnAction(event -> {
+            DatabaseWrapper databaseWrapper = new DatabaseWrapper();
+            databaseWrapper.deleteUserById(Main.id);
+            getScene().getWindow().hide();
+            Login login = new Login();
+            Scene scene = new Scene(login);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("PostApp");
+            stage.show();
+            home.getScene().getWindow().hide();
+        });
         posts = new Label("Posts number:");
         numOfPosts = new TextField("4");
         DatabaseWrapper databaseWrapper = new DatabaseWrapper();
@@ -28,8 +45,6 @@ public class Account extends SignUp {
         posts.setFont(Font.font(20));
         posts.setTextFill(Color.WHITE);
         posts.setFont(Font.font("Verdana", FontPosture.REGULAR,12));
-
-        submit.setVisible(false);
 
         passwordLabel.setVisible(false);
         passwordField.setVisible(false);

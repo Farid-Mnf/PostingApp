@@ -16,10 +16,9 @@ public class SignUp extends GridPane {
     TextField firstNameField,lastNameField,emailField;
     PasswordField passwordField;
     Label firstNameLabel,lastNameLabel,emailLabel,passwordLabel;
-
+    Button deleteButton;
     Button submit;
     SignUp(){
-
         firstNameField = new TextField();
         lastNameField = new TextField();
         emailField = new TextField();
@@ -29,6 +28,10 @@ public class SignUp extends GridPane {
         emailLabel = new Label("Email: ");
         passwordLabel = new Label("Password");
         submit = new Button("Submit");
+        deleteButton = new Button("Delete Account");
+
+        deleteButton.setVisible(false);  // make it visible at Account class
+
         firstNameField.setMinSize(300,40);
         lastNameField.setMinSize(300,40);
         emailField.setMinSize(300,40);
@@ -50,6 +53,12 @@ public class SignUp extends GridPane {
         submit.setOnMousePressed(event -> submit.setStyle("-fx-background-color:#8e44ad"));
         submit.setOnMouseReleased(event -> submit.setStyle("-fx-background-color:#9b59b6"));
         submit.setOnMouseMoved(event -> submit.setCursor(Cursor.HAND));
+        deleteButton.setStyle("-fx-background-color:#9b59b6");
+        deleteButton.setTextFill(Color.WHITE);
+        deleteButton.setOnMousePressed(event -> submit.setStyle("-fx-background-color:#8e44ad"));
+        deleteButton.setOnMouseReleased(event -> submit.setStyle("-fx-background-color:#9b59b6"));
+        deleteButton.setOnMouseMoved(event -> submit.setCursor(Cursor.HAND));
+
         add(firstNameLabel,0,0);
         add(firstNameField,1,0);
         add(lastNameLabel,0,1);
@@ -58,10 +67,11 @@ public class SignUp extends GridPane {
         add(emailField,1,2);
         add(passwordLabel,0,3);
         add(passwordField,1,3);
-        add(submit,1,4);
+        add(submit,1,5);
         setHgap(20);
         setVgap(20);
         setMargin(submit,new Insets(20,0,0,0));
+        setMargin(deleteButton,new Insets(20,0,0,0));
         setMargin(firstNameLabel,new Insets(40,0,0,0));
         setMargin(firstNameField,new Insets(40,0,0,0));
         setStyle("-fx-background-color:#34495e");

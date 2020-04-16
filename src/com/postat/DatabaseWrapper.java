@@ -113,4 +113,15 @@ public class DatabaseWrapper {
             System.out.println(e.getCause());
         }
     }
+
+    public void deleteUserById(int id) {
+        try {
+            database.prepare("delete from user where id=?");
+            database.setInt(1,id);
+            database.execute();
+            database.close();
+        }catch (SQLException e) {
+            System.out.println("can't delete user: "+e.getCause()+" "+e.getSQLState());
+        }
+    }
 }

@@ -8,7 +8,7 @@ public class Posts {
 
     public static void initPostsList(){
         DatabaseWrapper databaseWrapper = new DatabaseWrapper();
-        postsList = databaseWrapper.getPosts();   // BUG here
+        postsList = databaseWrapper.getPosts();
     }
 
     public static Post getCurrentPost(){
@@ -17,7 +17,7 @@ public class Posts {
             Post temp = new Post("No","Posts","Please add posts in the database");
             return temp;
         }
-        return postsList.get(post_id);  // Bug here
+        return postsList.get(post_id);
     }
     public static Post getNextPost(){
         initPostsList();

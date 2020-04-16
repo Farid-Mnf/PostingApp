@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 
 public class Home extends BorderPane {
-    public static int id;  // unified id across all stages to communicate
+    public static int id;  // unified id to communicate between Scenes
     public static String[] userData;
     TextArea postText;
     Button next,previous;
@@ -54,7 +54,7 @@ public class Home extends BorderPane {
             Scene scene = new Scene(login);
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Postaty");
+            stage.setTitle("PostApp");
             stage.show();
             getScene().getWindow().hide();
         });
@@ -96,8 +96,9 @@ public class Home extends BorderPane {
                     System.out.println("Users selected");
                 }else if(sidePanel.getSelectionModel().getSelectedItem().equals("Account")){
                     Account account = new Account();
+                    account.home = getHome();
                     account.id = id;
-                    Scene scene = new Scene(account,550,400);
+                    Scene scene = new Scene(account,580,500);
                     Stage stage = new Stage();
                     stage.setTitle(email);
                     stage.setScene(scene);
@@ -189,5 +190,11 @@ public class Home extends BorderPane {
         controlPane.setPadding(new Insets(10));
         controlPane.setAlignment(Pos.CENTER);
         setBottom(controlPane);
+    }
+    public void hide() {
+        super.getScene().getWindow().hide();
+    }
+    public Home getHome() {
+        return this;
     }
 }

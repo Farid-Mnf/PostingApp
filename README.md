@@ -1,1 +1,5 @@
-### simple app using JavaFx to make a facebook-like posting mechanism : posting and viewing posts
+### Simple Posts desktop app using JavaFx, JDBC and mysql database
+
+#### Viewing posts
+#### Create users
+#### Users add posts 

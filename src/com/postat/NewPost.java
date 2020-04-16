@@ -23,7 +23,7 @@ public class NewPost extends GridPane {
         post = new Button("Post");
 
         post.setOnAction(event -> {
-            // store post in database then close
+            // store post in database
             String postContent = content.getText();
             databaseWrapper.addPost(userId, postContent);
             Posts.postsList = databaseWrapper.getPosts();
@@ -64,7 +64,6 @@ public class NewPost extends GridPane {
         userName.setFont(Font.font("Verdana", FontPosture.REGULAR,20));
         content.setFont(Font.font("Verdana", FontPosture.REGULAR,20));
         post.setFont(Font.font("Verdana", FontPosture.REGULAR,20));
-
     }
 
 
